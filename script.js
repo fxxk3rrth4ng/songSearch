@@ -4,7 +4,7 @@ $(document).ready(function() {
 	$('.searchBtn').on('click', search);
 	$('.searchInput').on('keyup', function(event) {
 		if (event.keyCode === 13) {
-		search();
+			search();
 		}
 	});
 
@@ -14,8 +14,8 @@ $(document).ready(function() {
 
 		// 입력이 빈 칸이면 알림창을 띄움
 		if (searchQuery === '') {
-		alert('검색어를 입력해주세요.');
-		return;
+			alert('검색어를 입력해주세요.');
+			return;
 		}
 
 		// iTunes API를 이용하여 상위 10개의 검색 결과를 가져옴
