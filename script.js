@@ -44,9 +44,7 @@ $(document).ready(function() {
 
 					// 19금 트랙일 경우 제목 뒤에 19 아이콘을 붙임
 					if (results[i].trackExplicitness === 'explicit') {
-						var trackExplicitness = ' 🔞';
-					} else {
-						var trackExplicitness = '';
+						trackName += ' 🔞';
 					}
 
 					// 가수가 5명 이상인 경우 최대 5명까지만 표시
@@ -59,7 +57,7 @@ $(document).ready(function() {
 					}
 
 					// 출력값 설정
-					output += '<hr><div class="res"><div class="img"><img src="' + albumCover + '"></div><div class="text"><p>제목: ' + trackName + trackExplicitness + '</p><br /><p>가수: ' + artistName + '</p><br /><p>앨범: ' + albumName + ' (' + releaseDate.getFullYear() + ')' + '</p></div></div>';
+					output += '<hr><div class="res"><div class="img"><img src="' + albumCover + '"></div><div class="text"><p>제목: ' + trackName + '</p><br /><p>가수: ' + artistName + '</p><br /><p>앨범: ' + albumName + ' (' + releaseDate.getFullYear() + ')' + '</p></div></div>';
 				}
 
 				// 결과 출력
