@@ -18,8 +18,8 @@ $(document).ready(function() {
 			return;
 		}
 
-		// iTunes API를 이용하여 상위 10개의 검색 결과를 가져옴
-		var apiURL = 'https://itunes.apple.com/search?media=music&limit=10&term=' + encodeURIComponent(searchQuery) + '&lang=ko_kr';
+		// iTunes API를 이용하여 검색 결과를 가져옴
+		var apiURL = 'https://itunes.apple.com/search?media=music&term=' + encodeURIComponent(searchQuery) + '&lang=ko_kr';
 
 		$.ajax({
 			// API 주소에서 json 형태의 데이터를 받아옴
@@ -34,7 +34,8 @@ $(document).ready(function() {
 
 				//출력값 초기화
 				var output = '';
-				for (var i = 0; i < results.length; i++) {
+				// 검색 결과 중 상위 10개 출력
+				for (var i = 0; i < 10; i++) {
 					// 커버, 제목, 가수, 앨범, 발매 연도 값을 가져옴
 					var albumCover = results[i].artworkUrl100;
 					var trackName = results[i].trackName;
@@ -54,6 +55,14 @@ $(document).ready(function() {
 						artistNames = artistNames.slice(0, 5);
 						artistNames.push('외 ' + (orgArtistLength - 5) + '명');
 						artistName = artistNames.join(', ');
+					}
+
+					// 앨범 제목에서 앨범 유형 제외
+					if (albumName.includes('- Single')) {
+						albumName = albumName.replace('- Single', '');
+					}
+					if (albumName.includes('- EP')) {
+						albumName = albumName.replace('- EP', '');
 					}
 
 					// 출력값 설정
