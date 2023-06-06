@@ -19,7 +19,12 @@ $(document).ready(function() {
 		}
 
 		// iTunes API를 이용하여 검색 결과를 가져옴
-		var apiURL = 'https://itunes.apple.com/search?media=music&term=' + encodeURIComponent(searchQuery) + '&lang=ko_kr';
+		if($('.explicitCheck').is(":checked")) {
+			var apiURL = 'https://itunes.apple.com/search?media=music&term=' + encodeURIComponent(searchQuery) + '&lang=ko_kr&explicit=yes';
+		} else {
+			var apiURL =  'https://itunes.apple.com/search?media=music&term=' + encodeURIComponent(searchQuery) + '&lang=ko_kr&explicit=no';
+		}
+		
 
 		$.ajax({
 			// API 주소에서 json 형태의 데이터를 받아옴
@@ -27,6 +32,7 @@ $(document).ready(function() {
 			dataType: 'jsonp',
 			// 데이터 로드가 성공할 경우
 			success: function(data) {
+				console.log(data);
 				// kind가 song인 값만 가져옴 (뮤직 비디오를 제외하기 위함)
 				var results = data.results.filter(function(result) {
 					return result.kind === 'song';
@@ -70,7 +76,13 @@ $(document).ready(function() {
 					}
 
 					// 출력값 설정
-					output += '<hr><div class="res"><div class="img"><img src="' + albumCover + '"></div><div class="text"><p>제목: ' + trackName + '</p><br /><p>가수: ' + artistName + '</p><br /><p>앨범: ' + albumName + ' (' + releaseDate.getFullYear() + ')' + '</p><br><p>길이: ' + songMin + '분 ' + songSec + '초</p></div></div>';
+					output += '<hr><div class="res">'
+					output += '<div class="img"><img src="' + albumCover + '"></div>';
+					output += '<div class="text"><p>제목: ' + trackName + '</p><br />';
+					output += '<p>가수: ' + artistName + '</p><br />';
+					output += '<p>앨범: ' + albumName + ' (' + releaseDate.getFullYear() + ')' + '</p><br/>';
+					output += '<p>길이: ' + songMin + '분 ' + songSec + '초</p></div>';
+					output += '</div>';
 				}
 
 				// 결과 출력
