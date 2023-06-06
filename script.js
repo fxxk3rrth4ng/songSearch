@@ -32,7 +32,6 @@ $(document).ready(function() {
 			dataType: 'jsonp',
 			// 데이터 로드가 성공할 경우
 			success: function(data) {
-				console.log(data);
 				// kind가 song인 값만 가져옴 (뮤직 비디오를 제외하기 위함)
 				var results = data.results.filter(function(result) {
 					return result.kind === 'song';
@@ -40,8 +39,12 @@ $(document).ready(function() {
 
 				//출력값 초기화
 				var output = '';
+
+				if (results.length > 10) var n = 10;
+				else var n = results.length;
+
 				// 검색 결과 중 상위 10개 출력
-				for (var i = 0; i < 10; i++) {
+				for (var i = 0; i < n; i++) {
 					// 커버, 제목, 가수, 앨범, 발매 연도 값을 가져옴
 					var albumCover = results[i].artworkUrl100;
 					var trackName = results[i].trackName;
